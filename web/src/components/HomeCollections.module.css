@@ -1,0 +1,132 @@
+.layout {
+  display: grid;
+  flex: 1;
+  grid-template-columns: minmax(18rem, 1fr) 1.6fr;
+  gap: 2rem;
+  min-height: 0;
+  padding: clamp(1.5rem, 4vw, 3rem) var(--space-page-x) 0;
+}
+
+.label,
+.count {
+  font-family: var(--font-family-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.label {
+  margin-bottom: 1.25rem;
+}
+
+.list ul {
+  list-style: none;
+}
+
+.link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding-block: 0.125rem;
+}
+
+.name {
+  font-family: var(--font-family-display);
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  font-weight: 500;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.link[data-active] .name {
+  font-family: var(--font-family-serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+}
+
+/* Accrochage : une grande œuvre, deux petites empilées à sa droite. */
+.hangs {
+  position: relative;
+  min-height: 0;
+}
+
+.hang {
+  --hang-height: min(56svh, 30vw);
+
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.35s ease,
+    visibility 0.35s;
+}
+
+.hang[data-active] {
+  opacity: 1;
+  visibility: visible;
+}
+
+.large {
+  /* --aspect (largeur / hauteur) est posé sur l'élément : une œuvre large ne déborde pas. */
+  --wall-height: min(var(--hang-height), calc((30vw - 120px) / var(--aspect)));
+}
+
+.small {
+  --wall-height: min(calc(var(--hang-height) * 0.32), calc((14vw - 56px) / var(--aspect)));
+  --frame-border: 6px;
+  --frame-mat: 22px;
+}
+
+/* Les deux petites œuvres sont empilées dans une colonne. */
+.hang:has(.small) {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: 1fr 1fr;
+  place-content: center;
+  align-items: center;
+  justify-items: start;
+}
+
+.hang .large {
+  grid-row: 1 / span 2;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .label {
+    display: none;
+  }
+
+  .link {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding-block: 0.5rem;
+  }
+
+  /* Sur mobile, pas d'état actif ni d'accrochage. */
+  .link[data-active] .name {
+    font-family: var(--font-family-display);
+    font-style: normal;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .hangs {
+    display: none;
+  }
+}
