@@ -98,7 +98,8 @@
   grid-row: 1 / span 2;
 }
 
-@media (max-width: 768px) {
+/* Téléphone et tablette en portrait : l'accrochage manque de place, on garde la liste seule. */
+@media (max-width: 768px), (max-width: 1100px) and (orientation: portrait) {
   .layout {
     display: flex;
     flex-direction: column;
@@ -118,7 +119,7 @@
     padding-block: 0.5rem;
   }
 
-  /* Sur mobile, pas d'état actif ni d'accrochage. */
+  /* Pas d'état actif ni d'accrochage. */
   .link[data-active] .name {
     font-family: var(--font-family-display);
     font-style: normal;
