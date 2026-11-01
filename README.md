@@ -39,4 +39,17 @@ npm run dev:studio                # Studio sur http://localhost:3333
     └── schemaTypes/  Modèle de contenu : collection, œuvre, à propos
 ```
 
+## Importer les œuvres
+
+Le script `studio/scripts/import/` crée les 7 collections et les 79 œuvres à partir du dossier de photos et du CSV. Il se lance depuis un poste qui a les photos (le Mac) :
+
+```bash
+cd studio
+npx sanity login                                                  # une seule fois
+DRY_RUN=1 PHOTOS_DIR="/chemin/vers/photo oeuvres" npm run import:artworks   # essai, sans rien envoyer
+PHOTOS_DIR="/chemin/vers/photo oeuvres" npm run import:artworks             # import réel
+```
+
+Relancer le script ne crée pas de doublons et ne touche pas aux œuvres déjà modifiées dans le Studio (sauf avec `FORCE=1`). Les titres, prix et descriptions importés sont fictifs, à remplacer avant la mise en ligne.
+
 Les règles de travail (branches, commits, PR) sont dans [CONTRIBUTING.md](CONTRIBUTING.md).
