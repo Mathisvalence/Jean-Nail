@@ -1,13 +1,19 @@
 .main {
-  padding: 4rem 2rem;
-}
-
-.title {
-  font-family: var(--font-family-display);
-  text-transform: uppercase;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .tagline {
+  padding: 1.5rem var(--space-page-x);
   font-family: var(--font-family-serif);
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
   font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .tagline {
+    display: none;
+  }
 }
