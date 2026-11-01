@@ -17,3 +17,10 @@
     display: none;
   }
 }
+
+/* Tablette en portrait : la liste est centrée, la phrase aussi. */
+@media (max-width: 1100px) and (orientation: portrait) {
+  .tagline {
+    text-align: center;
+  }
+}

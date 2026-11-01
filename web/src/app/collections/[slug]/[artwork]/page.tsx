@@ -4,6 +4,7 @@ import {notFound} from 'next/navigation'
 
 import {ArtworkViewer} from '@/components/ArtworkViewer'
 import {FramedArtwork} from '@/components/FramedArtwork'
+import {PageFade} from '@/components/PageFade'
 import {formatArtworkMeta, padIndex} from '@/lib/format'
 import {neighbours} from '@/lib/navigation'
 import {getCollection} from '@/sanity/collection'
@@ -53,37 +54,39 @@ export default async function ArtworkPage({params}: PageProps<'/collections/[slu
   const collectionHref = `/collections/${collection.slug}`
 
   return (
-    <main className={styles.main}>
-      <div className={styles.topbar}>
-        <Link href={collectionHref} className={styles.back}>
-          ← {collection.name}
-        </Link>
-        <p className={styles.counter}>
-          {padIndex(index + 1)} / {padIndex(collection.artworks.length)}
-        </p>
-      </div>
+    <PageFade>
+      <main className={styles.main}>
+        <div className={styles.topbar}>
+          <Link href={collectionHref} className={styles.back}>
+            ← {collection.name}
+          </Link>
+          <p className={styles.counter}>
+            {padIndex(index + 1)} / {padIndex(collection.artworks.length)}
+          </p>
+        </div>
 
-      <ArtworkViewer
-        aspectRatio={artwork.width / artwork.height}
-        previous={previous && {href: previous.href, title: previous.title}}
-        next={next && {href: next.href, title: next.title}}
-        collectionHref={collectionHref}
-      >
-        <FramedArtwork
-          image={artwork.image}
-          width={artwork.width}
-          height={artwork.height}
-          heightRatio={1}
-          sizes="(max-width: 768px) 80vw, 60vw"
-          priority
-        />
-      </ArtworkViewer>
+        <ArtworkViewer
+          aspectRatio={artwork.width / artwork.height}
+          previous={previous && {href: previous.href, title: previous.title}}
+          next={next && {href: next.href, title: next.title}}
+          collectionHref={collectionHref}
+        >
+          <FramedArtwork
+            image={artwork.image}
+            width={artwork.width}
+            height={artwork.height}
+            heightRatio={1}
+            sizes="(max-width: 768px) 80vw, 60vw"
+            priority
+          />
+        </ArtworkViewer>
 
-      <div className={styles.caption}>
-        <h1 className={styles.title}>{artwork.title}</h1>
-        <p className={styles.meta}>{formatArtworkMeta(artwork)}</p>
-        {artwork.description && <p className={styles.description}>{artwork.description}</p>}
-      </div>
-    </main>
+        <div className={styles.caption}>
+          <h1 className={styles.title}>{artwork.title}</h1>
+          <p className={styles.meta}>{formatArtworkMeta(artwork)}</p>
+          {artwork.description && <p className={styles.description}>{artwork.description}</p>}
+        </div>
+      </main>
+    </PageFade>
   )
 }
