@@ -1,0 +1,113 @@
+.wall {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.scroller {
+  /*
+   * Hauteur laissée à la plus haute œuvre. Valeur approximative au premier affichage,
+   * puis ajustée en JavaScript à la hauteur réelle de la scène (voir CollectionWall.tsx).
+   */
+  --wall-height: max(120px, calc(100svh - 26rem));
+
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 6rem);
+  padding-inline: 50vw;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  list-style: none;
+}
+
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.scroller:focus-visible {
+  outline-offset: -4px;
+}
+
+.item {
+  flex: none;
+  scroll-snap-align: center;
+}
+
+.link {
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.link:hover {
+  transform: translateY(-4px);
+}
+
+.footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.5rem var(--space-page-x);
+}
+
+.caption {
+  max-width: 28rem;
+}
+
+.title {
+  font-family: var(--font-family-sans);
+  font-size: 0.9375rem;
+}
+
+.meta,
+.counter {
+  font-family: var(--font-family-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.meta {
+  margin-top: 0.25rem;
+}
+
+.description {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--color-ink-muted);
+}
+
+.counter {
+  flex: none;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .scroller {
+    --frame-border: var(--frame-border-mobile);
+    --frame-mat: var(--frame-mat-mobile);
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .description {
+    display: none;
+  }
+}

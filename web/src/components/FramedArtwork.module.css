@@ -1,0 +1,25 @@
+/*
+ * --wall-height est fourni par le parent : hauteur disponible pour la plus haute œuvre.
+ * Le cadre (baguette + passe-partout) s'ajoute autour de l'image.
+ */
+.frame {
+  flex: none;
+  border: var(--frame-border) solid var(--color-ink);
+  padding: var(--frame-mat);
+  background: var(--color-mat);
+  box-shadow:
+    inset 0 1px 6px rgb(0 0 0 / 18%),
+    0 14px 28px -10px rgb(0 0 0 / 35%),
+    0 4px 8px rgb(0 0 0 / 12%);
+}
+
+.canvas {
+  position: relative;
+  height: calc(var(--wall-height) * var(--artwork-height-ratio));
+  aspect-ratio: var(--artwork-ratio);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 6%);
+}
+
+.image {
+  object-fit: contain;
+}

@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: var(--space-page-y) var(--space-page-x) 0;
+}
+
+.name {
+  font-family: var(--font-family-display);
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.link {
+  font-family: var(--font-family-sans);
+  font-size: 0.875rem;
+  color: var(--color-ink-muted);
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: var(--color-ink);
+}

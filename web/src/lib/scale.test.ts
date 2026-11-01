@@ -1,41 +1,31 @@
 import {describe, expect, it} from 'vitest'
 
-import {displaySize, wallScale} from './scale'
+import {heightRatios} from './scale'
 
-describe('wallScale', () => {
-  it('fait tenir la plus haute œuvre dans la hauteur disponible', () => {
-    const artworks = [
-      {width: 50, height: 65},
-      {width: 100, height: 130},
-      {width: 30, height: 40},
-    ]
-    const scale = wallScale(artworks, 520)
-    expect(scale).toBe(4)
-    expect(displaySize(artworks[1], scale).height).toBe(520)
+describe('heightRatios', () => {
+  it('donne 1 à la plus haute œuvre et des ratios proportionnels aux autres', () => {
+    expect(
+      heightRatios([
+        {width: 50, height: 65},
+        {width: 100, height: 130},
+        {width: 30, height: 39},
+      ]),
+    ).toEqual([0.5, 1, 0.3])
   })
 
-  it('garde les proportions réelles entre les œuvres', () => {
-    const artworks = [
-      {width: 50, height: 65},
-      {width: 100, height: 130},
-    ]
-    const scale = wallScale(artworks, 600)
-    const small = displaySize(artworks[0], scale)
-    const large = displaySize(artworks[1], scale)
-    expect(large.height / small.height).toBeCloseTo(2, 1)
+  it('garde les proportions réelles quelle que soit la largeur', () => {
+    const [a, b] = heightRatios([
+      {width: 200, height: 40},
+      {width: 20, height: 40},
+    ])
+    expect(a).toBe(b)
   })
 
-  it('renvoie 0 pour une collection vide', () => {
-    expect(wallScale([], 500)).toBe(0)
+  it('renvoie une liste vide pour une collection vide', () => {
+    expect(heightRatios([])).toEqual([])
   })
 
-  it('refuse une hauteur disponible nulle ou négative', () => {
-    expect(() => wallScale([{width: 10, height: 10}], 0)).toThrow(RangeError)
-  })
-})
-
-describe('displaySize', () => {
-  it('arrondit au pixel', () => {
-    expect(displaySize({width: 33, height: 41}, 1.5)).toEqual({width: 50, height: 62})
+  it('ne casse pas sur des hauteurs nulles', () => {
+    expect(heightRatios([{width: 10, height: 0}])).toEqual([0])
   })
 })

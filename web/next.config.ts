@@ -4,7 +4,9 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   images: {
-    remotePatterns: [{protocol: 'https', hostname: 'cdn.sanity.io'}],
+    // Les images sont redimensionnées par le CDN de Sanity (voir src/sanity/image-loader.ts).
+    loader: 'custom',
+    loaderFile: './src/sanity/image-loader.ts',
   },
 }
 

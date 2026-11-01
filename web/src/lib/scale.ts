@@ -6,25 +6,14 @@ export type Dimensions = {
 }
 
 /**
- * Échelle commune (px par cm) d'une collection : toutes les œuvres partagent la même,
- * calculée pour que la plus haute tienne dans la hauteur disponible.
- * C'est ce qui donne des hauteurs différentes sur le mur, comme dans une vraie galerie.
+ * Hauteur de chaque œuvre rapportée à la plus haute de la collection (entre 0 et 1).
+ *
+ * Toutes les œuvres d'une collection partagent ainsi la même échelle : la plus haute occupe
+ * toute la hauteur du mur, les autres sont plus petites en proportion de leurs vraies
+ * dimensions, comme dans une galerie. Le CSS multiplie ce ratio par la hauteur disponible.
  */
-export function wallScale(artworks: readonly Dimensions[], availableHeightPx: number): number {
-  if (availableHeightPx <= 0) {
-    throw new RangeError('La hauteur disponible doit être positive.')
-  }
+export function heightRatios(artworks: readonly Dimensions[]): number[] {
   const tallest = Math.max(0, ...artworks.map(({height}) => height))
-  if (tallest <= 0) {
-    return 0
-  }
-  return availableHeightPx / tallest
-}
-
-/** Taille affichée (en px, arrondie) d'une œuvre à une échelle donnée, cadre non compris. */
-export function displaySize({width, height}: Dimensions, scale: number): Dimensions {
-  return {
-    width: Math.round(width * scale),
-    height: Math.round(height * scale),
-  }
+  if (tallest <= 0) return artworks.map(() => 0)
+  return artworks.map(({height}) => Math.max(0, height) / tallest)
 }
