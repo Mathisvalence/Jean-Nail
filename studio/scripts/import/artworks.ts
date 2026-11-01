@@ -95,7 +95,8 @@ export type Dimensions = {width: number; height: number}
 
 /**
  * Le CSV donne deux côtés et une orientation (« Format ») : les colonnes ne disent pas
- * toujours laquelle est la largeur. On se fie donc à l'orientation, puis au ratio de la photo.
+ * toujours laquelle est la largeur. On se fie d'abord à l'orientation de la photo, puis au
+ * « Format » quand la photo n'est pas connue (mode essai).
  */
 export function resolveDimensions(
   row: CsvRow,
@@ -109,8 +110,9 @@ export function resolveDimensions(
   if (a && b) {
     const long = Math.max(a, b)
     const short = Math.min(a, b)
+    // La photo fait foi : la colonne « Format » du CSV contredit parfois l'image.
     const landscape =
-      format === 'horizontal' ? true : format === 'portrait' ? false : (photoIsLandscape ?? false)
+      photoIsLandscape ?? (format === 'horizontal' ? true : format === 'portrait' ? false : false)
     return {
       dimensions: landscape ? {width: long, height: short} : {width: short, height: long},
       estimated: false,

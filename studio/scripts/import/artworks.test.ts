@@ -56,6 +56,14 @@ describe('resolveDimensions', () => {
     expect(resolveDimensions(row).dimensions).toEqual({width: 50, height: 65})
   })
 
+  it('suit l’orientation de la photo quand le « Format » la contredit', () => {
+    const row = {'Hauteur (cm)': '40', 'Largeur (cm)': '30', Format: 'Horizontal'}
+    expect(resolveDimensions(row, {width: 1654, height: 2500}).dimensions).toEqual({
+      width: 30,
+      height: 40,
+    })
+  })
+
   it('garde un carré carré', () => {
     const row = {'Hauteur (cm)': '30', 'Largeur (cm)': '30', Format: 'Carré'}
     expect(resolveDimensions(row)).toEqual({dimensions: {width: 30, height: 30}, estimated: false})
