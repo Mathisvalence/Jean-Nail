@@ -28,11 +28,11 @@ type ArtworkSaleInfo = {
 
 /**
  * Ligne d'informations d'une œuvre : « 50 × 65 cm — 1 800 € ».
- * Une œuvre vendue affiche « Vendue » à la place du prix (choix provisoire, à confirmer).
+ * Une œuvre vendue n'affiche que ses dimensions : ni prix, ni mention « Vendue » (choix de mathis).
  */
 export function formatArtworkMeta({width, height, price, status}: ArtworkSaleInfo): string {
   const dimensions = formatDimensions(width, height)
-  if (status === 'sold') return `${dimensions} — Vendue`
+  if (status === 'sold') return dimensions
   if (price) return `${dimensions} — ${formatPrice(price)}`
   return dimensions
 }
