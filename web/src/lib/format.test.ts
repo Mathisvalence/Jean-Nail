@@ -24,8 +24,8 @@ describe('formatArtworkMeta', () => {
     )
   })
 
-  it('affiche « Vendue » à la place du prix', () => {
-    expect(formatArtworkMeta({...base, price: 1800, status: 'sold'})).toBe('50 × 65 cm — Vendue')
+  it("n'affiche que les dimensions pour une œuvre vendue", () => {
+    expect(formatArtworkMeta({...base, price: 1800, status: 'sold'})).toBe('50 × 65 cm')
   })
 
   it('n’affiche que les dimensions sans prix', () => {
