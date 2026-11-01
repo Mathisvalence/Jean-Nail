@@ -54,6 +54,18 @@ Relancer le script ne crée pas de doublons et ne touche pas aux œuvres déjà 
 
 Les règles de travail (branches, commits, PR) sont dans [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## Mettre le Studio en ligne
+
+Le Studio est publié par Sanity à l'adresse https://jean-nail.sanity.studio (réglage `studioHost` dans `studio/sanity.cli.ts`). Il se publie depuis le Mac, après chaque changement de schéma fusionné dans `main` :
+
+```bash
+git switch main && git pull
+cd studio
+npm run deploy
+```
+
+Au premier déploiement, la commande affiche un `appId` : l'ajouter dans `deployment` de `studio/sanity.cli.ts` (par une PR) pour que les suivants ne posent plus de question. Pour que Jean puisse se connecter, l'inviter dans [sanity.io/manage](https://www.sanity.io/manage) → projet Jean Nail → Members, avec le rôle Editor.
+
 ## Mise à jour automatique du site
 
 Quand Jean publie une modification dans le Studio, Sanity appelle `/api/revalidate` et le site se met à jour à la visite suivante, sans redéploiement. Réglage à faire une fois :
