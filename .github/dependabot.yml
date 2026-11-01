@@ -9,6 +9,13 @@ updates:
         patterns: ['sanity', '@sanity/*', 'next-sanity']
       next:
         patterns: ['next', 'eslint-config-next', 'react', 'react-dom', '@types/react*']
+    ignore:
+      # Versions majeures traitées à la main : @types/node suit la version de Node (22),
+      # et TypeScript 7 change de compilateur.
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
     commit-message:
       prefix: chore
       include: scope
