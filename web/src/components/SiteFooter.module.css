@@ -1,0 +1,19 @@
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  padding: 0 var(--space-page-x) var(--space-page-y);
+  font-family: var(--font-family-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.footer a {
+  transition: color 0.2s ease;
+}
+
+.footer a:hover {
+  color: var(--color-ink);
+}

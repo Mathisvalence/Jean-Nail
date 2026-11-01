@@ -1,5 +1,9 @@
 import type {Metadata} from 'next'
 
+import {Lighting} from '@/components/Lighting'
+import {SiteFooter} from '@/components/SiteFooter'
+import {SiteHeader} from '@/components/SiteHeader'
+
 import {fontVariables} from './fonts'
 import './globals.css'
 
@@ -14,7 +18,12 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: LayoutProps<'/'>) {
   return (
     <html lang="fr" className={fontVariables}>
-      <body>{children}</body>
+      <body>
+        <SiteHeader />
+        {children}
+        <SiteFooter />
+        <Lighting />
+      </body>
     </html>
   )
 }

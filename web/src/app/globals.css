@@ -15,6 +15,12 @@
   --frame-mat-desktop: 50px;
   --frame-border-mobile: 4px;
   --frame-mat-mobile: 10px;
+  --frame-border: var(--frame-border-desktop);
+  --frame-mat: var(--frame-mat-desktop);
+
+  /* Marges de page */
+  --space-page-x: clamp(1.25rem, 3vw, 2.5rem);
+  --space-page-y: clamp(1.25rem, 2.5vw, 2rem);
 
   /* Typographies (chargées dans app/fonts.ts) */
   --font-family-display: var(--font-display), 'Arial Narrow', sans-serif;
@@ -36,7 +42,9 @@ html {
 }
 
 body {
-  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
   background: var(--color-background);
   color: var(--color-ink);
   font-family: var(--font-family-sans);
