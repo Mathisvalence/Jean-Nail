@@ -53,3 +53,18 @@ PHOTOS_DIR="/chemin/vers/photo oeuvres" npm run import:artworks             # im
 Relancer le script ne crée pas de doublons et ne touche pas aux œuvres déjà modifiées dans le Studio (sauf avec `FORCE=1`). Les titres, prix et descriptions importés sont fictifs, à remplacer avant la mise en ligne.
 
 Les règles de travail (branches, commits, PR) sont dans [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Mise à jour automatique du site
+
+Quand Jean publie une modification dans le Studio, Sanity appelle `/api/revalidate` et le site se met à jour à la visite suivante, sans redéploiement. Réglage à faire une fois :
+
+1. Générer un secret : `openssl rand -hex 32`.
+2. Netlify → Project configuration → Environment variables : ajouter `SANITY_REVALIDATE_SECRET` avec ce secret, puis redéployer.
+3. [sanity.io/manage](https://www.sanity.io/manage) → projet Jean Nail → API → Webhooks → Create webhook :
+   - URL : `https://<domaine du site>/api/revalidate`
+   - Dataset : `production`
+   - Trigger on : Create, Update, Delete
+   - Filter : `_type in ["artwork", "collection", "about"]`
+   - HTTP method : POST, API version : la plus récente
+   - Secret : le même secret
+4. Vérifier : modifier un titre dans le Studio, publier, recharger la page deux fois.
