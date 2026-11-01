@@ -8,8 +8,8 @@ export const SANITY_CACHE_TAG = 'sanity'
 
 /**
  * Lecture du contenu publié, mise en cache par Next.js.
- * Le cache se renouvelle toutes les heures au plus tard ; une revalidation à la publication
- * (webhook Sanity) viendra s'y ajouter.
+ * Le cache est renouvelé à chaque publication dans Sanity (webhook → app/api/revalidate),
+ * et toutes les heures au plus tard si le webhook échoue.
  */
 export async function sanityFetch<const Query extends string>(
   query: Query,
