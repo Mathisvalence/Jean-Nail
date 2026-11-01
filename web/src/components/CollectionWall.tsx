@@ -126,7 +126,7 @@ export function CollectionWall({artworks}: Props) {
                   height={artwork.height}
                   heightRatio={artwork.heightRatio}
                   sizes="(max-width: 768px) 70vw, 40vw"
-                  priority={index < 3}
+                  preload={index < 3}
                 />
               </Link>
             </li>

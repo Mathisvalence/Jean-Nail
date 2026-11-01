@@ -36,7 +36,7 @@ export default async function AboutPage() {
               sizes="(max-width: 768px) 60vw, 22rem"
               placeholder={portrait.metadata?.lqip ? 'blur' : 'empty'}
               blurDataURL={portrait.metadata?.lqip ?? undefined}
-              priority
+              preload
             />
           </div>
         )}

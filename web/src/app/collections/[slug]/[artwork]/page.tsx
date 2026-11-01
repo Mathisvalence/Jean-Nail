@@ -77,7 +77,7 @@ export default async function ArtworkPage({params}: PageProps<'/collections/[slu
             height={artwork.height}
             heightRatio={1}
             sizes="(max-width: 768px) 80vw, 60vw"
-            priority
+            preload
           />
         </ArtworkViewer>
 
