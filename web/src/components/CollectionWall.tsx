@@ -4,25 +4,14 @@ import Link from 'next/link'
 import {useCallback, useEffect, useRef, useState} from 'react'
 
 import {formatArtworkMeta, padIndex} from '@/lib/format'
+import {fitWallHeight} from '@/lib/scale'
+import type {DisplayArtwork} from '@/sanity/collection'
 
 import styles from './CollectionWall.module.css'
-import {FramedArtwork, type FramedArtworkImage} from './FramedArtwork'
-
-export type WallArtwork = {
-  id: string
-  href: string
-  title: string
-  width: number
-  height: number
-  heightRatio: number
-  price: number | null
-  status: string | null
-  description: string | null
-  image: FramedArtworkImage
-}
+import {FramedArtwork} from './FramedArtwork'
 
 type Props = {
-  artworks: WallArtwork[]
+  artworks: DisplayArtwork[]
 }
 
 /**
@@ -96,14 +85,17 @@ export function CollectionWall({artworks}: Props) {
       const frame =
         2 * parseFloat(style.getPropertyValue('--frame-border')) +
         2 * parseFloat(style.getPropertyValue('--frame-mat'))
-      const margin = stage.clientHeight * 0.08
       // Sur écran étroit, l'œuvre la plus large doit aussi tenir dans 80 % de la largeur.
       const widestFactor = Math.max(
         ...artworks.map(({heightRatio, width, height}) => (heightRatio * width) / height),
       )
-      const maxByWidth = (stage.clientWidth * 0.8 - frame) / widestFactor
-      const wallHeight = Math.max(120, Math.min(stage.clientHeight - frame - margin, maxByWidth))
-      scroller.style.setProperty('--wall-height', `${Math.round(wallHeight)}px`)
+      const wallHeight = fitWallHeight({
+        stageWidth: stage.clientWidth,
+        stageHeight: stage.clientHeight,
+        frame,
+        widestFactor,
+      })
+      scroller.style.setProperty('--wall-height', `${wallHeight}px`)
       updateActive()
     })
     observer.observe(stage)
