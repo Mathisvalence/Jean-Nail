@@ -3,6 +3,7 @@ import Link from 'next/link'
 import {notFound} from 'next/navigation'
 
 import {CollectionWall} from '@/components/CollectionWall'
+import {PageFade} from '@/components/PageFade'
 import {padIndex} from '@/lib/format'
 import {getCollection} from '@/sanity/collection'
 import {sanityFetch} from '@/sanity/fetch'
@@ -29,17 +30,19 @@ export default async function CollectionPage({params}: PageProps<'/collections/[
   if (!collection) notFound()
 
   return (
-    <main className={styles.main}>
-      <div className={styles.heading}>
-        <h1 className={styles.title}>
-          {collection.name}
-          <span className={styles.count}>{padIndex(collection.artworks.length)} œuvres</span>
-        </h1>
-        <Link href="/" className={styles.back}>
-          ← Collections
-        </Link>
-      </div>
-      <CollectionWall artworks={collection.artworks} />
-    </main>
+    <PageFade>
+      <main className={styles.main}>
+        <div className={styles.heading}>
+          <h1 className={styles.title}>
+            {collection.name}
+            <span className={styles.count}>{padIndex(collection.artworks.length)} œuvres</span>
+          </h1>
+          <Link href="/" className={styles.back}>
+            ← Collections
+          </Link>
+        </div>
+        <CollectionWall artworks={collection.artworks} />
+      </main>
+    </PageFade>
   )
 }
