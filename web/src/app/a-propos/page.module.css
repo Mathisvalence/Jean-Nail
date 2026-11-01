@@ -1,0 +1,82 @@
+.main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2rem, 6vw, 6rem);
+  padding: clamp(1.5rem, 4vw, 3rem) var(--space-page-x);
+}
+
+.portrait {
+  flex: none;
+  width: min(22rem, 32vw);
+  border: var(--frame-border-mobile) solid var(--color-ink);
+  padding: 22px;
+  background: var(--color-mat);
+  box-shadow:
+    inset 0 1px 6px rgb(0 0 0 / 18%),
+    0 14px 28px -10px rgb(0 0 0 / 35%),
+    0 4px 8px rgb(0 0 0 / 12%);
+}
+
+.portrait img {
+  width: 100%;
+  height: auto;
+}
+
+.text {
+  max-width: 34rem;
+}
+
+.title {
+  font-family: var(--font-family-display);
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.biography {
+  margin-top: 1.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+.biography p + p {
+  margin-top: 1em;
+}
+
+.contact {
+  margin-top: 2rem;
+  font-family: var(--font-family-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+  list-style: none;
+}
+
+.contact li + li {
+  margin-top: 0.5rem;
+}
+
+.contact a {
+  transition: color 0.2s ease;
+}
+
+.contact a:hover {
+  color: var(--color-ink);
+}
+
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .portrait {
+    width: min(16rem, 70vw);
+    padding: 10px;
+  }
+}
