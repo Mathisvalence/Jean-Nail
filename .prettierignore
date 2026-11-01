@@ -1,0 +1,10 @@
+node_modules
+.next
+dist
+.sanity
+.netlify
+package-lock.json
+web/sanity.types.ts
+web/next-env.d.ts
+studio/schema.json
+web/AGENTS.md
