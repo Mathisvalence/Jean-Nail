@@ -249,3 +249,64 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageAsset
   | Geopoint
+
+// Source: ../web/src/sanity/queries.ts
+// Variable: COLLECTION_SLUGS_QUERY
+// Query: *[_type == "collection" && defined(slug.current)]{"slug": slug.current}
+export type COLLECTION_SLUGS_QUERY_RESULT = Array<{
+  slug: string | null
+}>
+
+// Source: ../web/src/sanity/queries.ts
+// Variable: COLLECTION_QUERY
+// Query: *[_type == "collection" && slug.current == $slug][0]{    _id,    name,    "slug": slug.current,    "artworks": *[_type == "artwork" && collection._ref == ^._id && defined(image.asset)]      | order(order asc, inventoryNumber asc){  _id,  title,  "slug": slug.current,  width,  height,  price,  status,  description,  image{    alt,    asset->{_id, url, metadata{lqip, dimensions{width, height}}}  }}  }
+export type COLLECTION_QUERY_RESULT = {
+  _id: string
+  name: string | null
+  slug: string | null
+  artworks: Array<{
+    _id: string
+    title: string | null
+    slug: string | null
+    width: number | null
+    height: number | null
+    price: number | null
+    status: 'available' | 'sold' | null
+    description: string | null
+    image: {
+      alt: string | null
+      asset: {
+        _id: string
+        url: string | null
+        metadata: {
+          lqip: string | null
+          dimensions: {
+            width: number | null
+            height: number | null
+          } | null
+        } | null
+      } | null
+    } | null
+  }>
+} | null
+
+// Source: ../web/src/sanity/queries.ts
+// Variable: CONTACT_QUERY
+// Query: *[_type == "about" && _id == "about"][0]{email, instagram}
+export type CONTACT_QUERY_RESULT = {
+  email: string | null
+  instagram: string | null
+} | null
+
+// Query TypeMap
+declare global {
+  interface SanityQueries {
+    '*[_type == "collection" && defined(slug.current)]{"slug": slug.current}': COLLECTION_SLUGS_QUERY_RESULT
+    '\n  *[_type == "collection" && slug.current == $slug][0]{\n    _id,\n    name,\n    "slug": slug.current,\n    "artworks": *[_type == "artwork" && collection._ref == ^._id && defined(image.asset)]\n      | order(order asc, inventoryNumber asc){\n  _id,\n  title,\n  "slug": slug.current,\n  width,\n  height,\n  price,\n  status,\n  description,\n  image{\n    alt,\n    asset->{_id, url, metadata{lqip, dimensions{width, height}}}\n  }\n}\n  }\n': COLLECTION_QUERY_RESULT
+    '*[_type == "about" && _id == "about"][0]{email, instagram}': CONTACT_QUERY_RESULT
+  }
+}
+// Lets @sanity/client releases that predate the global registry read it too
+declare module '@sanity/client' {
+  interface SanityQueries extends globalThis.SanityQueries {}
+}
