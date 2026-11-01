@@ -29,6 +29,13 @@ export const COLLECTION_QUERY = defineQuery(`
   }
 `)
 
+export const ARTWORK_PATHS_QUERY = defineQuery(`
+  *[_type == "artwork" && defined(slug.current) && defined(collection->slug.current)]{
+    "slug": slug.current,
+    "collection": collection->slug.current
+  }
+`)
+
 export const CONTACT_QUERY = defineQuery(
   `*[_type == "about" && _id == "about"][0]{email, instagram}`,
 )

@@ -1,0 +1,56 @@
+.main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.topbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(1.5rem, 4vw, 3rem) var(--space-page-x) 0;
+}
+
+.back,
+.counter,
+.meta {
+  font-family: var(--font-family-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.back {
+  transition: color 0.2s ease;
+}
+
+.back:hover {
+  color: var(--color-ink);
+}
+
+.caption {
+  max-width: 34rem;
+  margin-inline: auto;
+  padding: 1.5rem var(--space-page-x);
+  text-align: center;
+}
+
+.title {
+  font-family: var(--font-family-sans);
+  font-size: 0.9375rem;
+  font-weight: 400;
+}
+
+.meta {
+  margin-top: 0.25rem;
+}
+
+.description {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--color-ink-muted);
+}

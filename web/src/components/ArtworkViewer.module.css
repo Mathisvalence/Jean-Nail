@@ -1,0 +1,44 @@
+.stage {
+  /* Valeur approximative au premier affichage, ajustée en JavaScript (voir ArtworkViewer.tsx). */
+  --wall-height: max(120px, calc(100svh - 24rem));
+
+  display: grid;
+  flex: 1;
+  grid-template-columns: minmax(3rem, 1fr) auto minmax(3rem, 1fr);
+  align-items: center;
+  min-height: 0;
+  touch-action: pan-y;
+}
+
+.artwork {
+  display: flex;
+  justify-content: center;
+}
+
+.arrow {
+  justify-self: center;
+  padding: 1rem;
+  font-family: var(--font-family-mono);
+  font-size: 1.25rem;
+  color: var(--color-ink-muted);
+  transition: color 0.2s ease;
+}
+
+a.arrow:hover {
+  color: var(--color-ink);
+}
+
+@media (max-width: 768px) {
+  .stage {
+    --frame-border: var(--frame-border-mobile);
+    --frame-mat: var(--frame-mat-mobile);
+
+    grid-template-columns: 2.5rem auto 2.5rem;
+    justify-content: center;
+  }
+
+  .arrow {
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+}

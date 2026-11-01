@@ -291,6 +291,14 @@ export type COLLECTION_QUERY_RESULT = {
 } | null
 
 // Source: ../web/src/sanity/queries.ts
+// Variable: ARTWORK_PATHS_QUERY
+// Query: *[_type == "artwork" && defined(slug.current) && defined(collection->slug.current)]{    "slug": slug.current,    "collection": collection->slug.current  }
+export type ARTWORK_PATHS_QUERY_RESULT = Array<{
+  slug: string | null
+  collection: string | null
+}>
+
+// Source: ../web/src/sanity/queries.ts
 // Variable: CONTACT_QUERY
 // Query: *[_type == "about" && _id == "about"][0]{email, instagram}
 export type CONTACT_QUERY_RESULT = {
@@ -303,6 +311,7 @@ declare global {
   interface SanityQueries {
     '*[_type == "collection" && defined(slug.current)]{"slug": slug.current}': COLLECTION_SLUGS_QUERY_RESULT
     '\n  *[_type == "collection" && slug.current == $slug][0]{\n    _id,\n    name,\n    "slug": slug.current,\n    "artworks": *[_type == "artwork" && collection._ref == ^._id && defined(image.asset)]\n      | order(order asc, inventoryNumber asc){\n  _id,\n  title,\n  "slug": slug.current,\n  width,\n  height,\n  price,\n  status,\n  description,\n  image{\n    alt,\n    asset->{_id, url, metadata{lqip, dimensions{width, height}}}\n  }\n}\n  }\n': COLLECTION_QUERY_RESULT
+    '\n  *[_type == "artwork" && defined(slug.current) && defined(collection->slug.current)]{\n    "slug": slug.current,\n    "collection": collection->slug.current\n  }\n': ARTWORK_PATHS_QUERY_RESULT
     '*[_type == "about" && _id == "about"][0]{email, instagram}': CONTACT_QUERY_RESULT
   }
 }
