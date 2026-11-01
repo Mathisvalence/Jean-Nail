@@ -1,0 +1,36 @@
+{
+  "name": "jean-nail",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Site vitrine et portfolio du peintre Jean Nail",
+  "workspaces": [
+    "web",
+    "studio"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "npm run dev --workspace web",
+    "dev:studio": "npm run dev --workspace studio",
+    "build": "npm run build --workspaces",
+    "lint": "npm run lint --workspaces",
+    "typecheck": "npm run typecheck --workspaces",
+    "test": "npm run test --workspace web",
+    "typegen": "npm run typegen --workspace studio",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
+    "prettier": "^3.9.10"
+  },
+  "lint-staged": {
+    "*.{js,mjs,cjs,ts,tsx,json,css,md,yml,yaml}": "prettier --write"
+  }
+}

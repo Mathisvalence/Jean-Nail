@@ -1,0 +1,10 @@
+# Configuration Netlify du site (application « web » du monorepo).
+# Dans Netlify : Base directory = (vide), Package directory = web.
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NEXT_PUBLIC_SANITY_PROJECT_ID = "sjigsrm6"
+  NEXT_PUBLIC_SANITY_DATASET = "production"
