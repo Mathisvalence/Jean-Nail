@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import {sanityFetch} from '@/sanity/fetch'
 import {CONTACT_QUERY} from '@/sanity/queries'
 
@@ -15,6 +17,7 @@ export async function SiteFooter() {
         </a>
       )}
       {contact?.email && <a href={`mailto:${contact.email}`}>{contact.email}</a>}
+      <Link href="/mentions-legales">Mentions légales</Link>
     </footer>
   )
 }
