@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  commits:
+    name: Messages de commit
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Vérifier le format Conventional Commits
+        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+
+  checks:
+    name: Qualité, tests et build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NEXT_PUBLIC_SANITY_PROJECT_ID: sjigsrm6
+      NEXT_PUBLIC_SANITY_DATASET: production
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Formatage (Prettier)
+        run: npm run format:check
+      - name: Lint (ESLint)
+        run: npm run lint
+      - name: Typage (TypeScript)
+        run: npm run typecheck
+      - name: Types Sanity à jour
+        run: |
+          npm run typegen
+          npx prettier --write web/sanity.types.ts
+          git diff --exit-code -- web/sanity.types.ts || (echo "::error::web/sanity.types.ts n'est pas à jour : lancer « npm run typegen » et committer le résultat." && exit 1)
+      - name: Tests unitaires (Vitest)
+        run: npm test
+      - name: Build du site (Next.js)
+        run: npm run build --workspace web
+      - name: Build du Studio (Sanity)
+        run: npm run build --workspace studio
