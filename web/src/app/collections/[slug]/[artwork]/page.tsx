@@ -39,6 +39,10 @@ export async function generateMetadata({
   return {
     title: `${artwork.title} — ${collection.name}`,
     description: artwork.description ?? `${artwork.title}, ${formatArtworkMeta(artwork)}.`,
+    // Aperçu de partage : la photo de l'œuvre, à 1200 px de large.
+    openGraph: {
+      images: [{url: `${artwork.image.url}?w=1200&fit=max&auto=format`, alt: artwork.image.alt}],
+    },
   }
 }
 
