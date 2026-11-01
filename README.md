@@ -8,7 +8,7 @@ Portfolio en ligne du peintre Jean Nail : les œuvres, classées par collection,
 
 ## Démarrer
 
-Prérequis : Node.js 22 (voir `.nvmrc`).
+Prérequis : Node.js 22 (voir `.nvmrc`) et npm 11 (`npm install --global npm@11` ; version exacte dans le champ `packageManager` de `package.json`). Une autre version de npm réécrit `package-lock.json`.
 
 ```bash
 npm install                       # installe le site et le Studio, active les hooks git

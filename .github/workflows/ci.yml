@@ -26,6 +26,8 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: npm
+      - name: Installer la version de npm du projet
+        run: npm install --global "$(node -p "require('./package.json').packageManager")"
       - run: npm ci
       - name: Vérifier le format Conventional Commits
         run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
@@ -43,6 +45,8 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: npm
+      - name: Installer la version de npm du projet
+        run: npm install --global "$(node -p "require('./package.json').packageManager")"
       - run: npm ci
       - name: Formatage (Prettier)
         run: npm run format:check
