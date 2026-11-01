@@ -36,6 +36,15 @@ export const ARTWORK_PATHS_QUERY = defineQuery(`
   }
 `)
 
+export const ABOUT_QUERY = defineQuery(`
+  *[_type == "about" && _id == "about"][0]{
+    biography,
+    email,
+    instagram,
+    portrait{alt, asset->{_id, url, metadata{lqip, dimensions{width, height}}}}
+  }
+`)
+
 export const CONTACT_QUERY = defineQuery(
   `*[_type == "about" && _id == "about"][0]{email, instagram}`,
 )
