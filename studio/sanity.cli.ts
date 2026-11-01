@@ -7,6 +7,8 @@ export default defineCliConfig({
   },
   studioHost: 'jean-nail',
   deployment: {
+    // Identifiant du Studio hébergé (jean-nail.sanity.studio), donné par le premier `sanity deploy`.
+    appId: 'hod3kdc8fll01hfddwj1wyp0',
     autoUpdates: true,
   },
   typegen: {
