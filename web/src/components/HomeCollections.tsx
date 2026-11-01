@@ -64,7 +64,7 @@ export function HomeCollections({collections}: Props) {
                   height={artwork.height}
                   heightRatio={1}
                   sizes={position === 0 ? '30vw' : '15vw'}
-                  priority={index === 0}
+                  preload={index === 0}
                 />
               </div>
             ))}

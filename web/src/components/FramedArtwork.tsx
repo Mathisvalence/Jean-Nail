@@ -18,11 +18,12 @@ type Props = {
   heightRatio: number
   /** Taille affichée approximative, pour que le navigateur choisisse la bonne image. */
   sizes: string
-  priority?: boolean
+  /** Charger l'image en avance (œuvres visibles dès l'arrivée sur la page). */
+  preload?: boolean
 }
 
 /** Œuvre encadrée : baguette noire, passe-partout blanc, ombres (composant Figma « Œuvre encadrée »). */
-export function FramedArtwork({image, width, height, heightRatio, sizes, priority}: Props) {
+export function FramedArtwork({image, width, height, heightRatio, sizes, preload}: Props) {
   const style = {
     '--artwork-ratio': `${width} / ${height}`,
     '--artwork-height-ratio': heightRatio,
@@ -36,7 +37,7 @@ export function FramedArtwork({image, width, height, heightRatio, sizes, priorit
           alt={image.alt}
           fill
           sizes={sizes}
-          priority={priority}
+          preload={preload}
           placeholder={image.lqip ? 'blur' : 'empty'}
           blurDataURL={image.lqip ?? undefined}
           className={styles.image}
