@@ -7,8 +7,10 @@
     "web",
     "studio"
   ],
+  "packageManager": "npm@11.21.1",
   "engines": {
-    "node": ">=22"
+    "node": ">=22",
+    "npm": ">=11"
   },
   "scripts": {
     "dev": "npm run dev --workspace web",

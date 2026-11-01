@@ -8,5 +8,7 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  # Même version de npm qu'en local et en CI (champ packageManager de package.json).
+  NPM_VERSION = "11.21.1"
   NEXT_PUBLIC_SANITY_PROJECT_ID = "sjigsrm6"
   NEXT_PUBLIC_SANITY_DATASET = "production"
