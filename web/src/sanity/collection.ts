@@ -34,8 +34,8 @@ type CompleteArtwork = RawArtwork & {
   image: {alt: string | null; asset: {url: string; metadata: {lqip: string | null} | null}}
 }
 
-function isComplete(artwork: RawArtwork): artwork is CompleteArtwork {
-  return Boolean(artwork.slug && artwork.width && artwork.height && artwork.image?.asset?.url)
+function isComplete(artwork: RawArtwork | null): artwork is CompleteArtwork {
+  return Boolean(artwork?.slug && artwork.width && artwork.height && artwork.image?.asset?.url)
 }
 
 /**
@@ -44,7 +44,7 @@ function isComplete(artwork: RawArtwork): artwork is CompleteArtwork {
  */
 export function toDisplayArtworks(
   collectionSlug: string,
-  rawArtworks: readonly RawArtwork[],
+  rawArtworks: readonly (RawArtwork | null)[],
 ): DisplayArtwork[] {
   const artworks = rawArtworks.filter(isComplete)
   const ratios = heightRatios(artworks)

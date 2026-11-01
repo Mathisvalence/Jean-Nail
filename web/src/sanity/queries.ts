@@ -46,10 +46,8 @@ export const HOME_QUERY = defineQuery(`
     name,
     "slug": slug.current,
     "count": count(*[_type == "artwork" && collection._ref == ^._id && defined(image.asset)]),
-    "featured": coalesce(
-      featuredArtworks[]->[defined(image.asset)]{${ARTWORK_FIELDS}},
-      []
-    ),
+    // Une référence peut viser une œuvre supprimée ou non publiée : null, écarté côté code.
+    "featured": coalesce(featuredArtworks[]->{${ARTWORK_FIELDS}}, []),
     "firstArtworks": *[_type == "artwork" && collection._ref == ^._id && defined(image.asset)]
       | order(order asc, inventoryNumber asc)[0...3]{${ARTWORK_FIELDS}}
   }

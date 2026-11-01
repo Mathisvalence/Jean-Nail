@@ -300,7 +300,7 @@ export type ARTWORK_PATHS_QUERY_RESULT = Array<{
 
 // Source: ../web/src/sanity/queries.ts
 // Variable: HOME_QUERY
-// Query: *[_type == "collection" && defined(slug.current)] | order(order asc, name asc){    _id,    name,    "slug": slug.current,    "count": count(*[_type == "artwork" && collection._ref == ^._id && defined(image.asset)]),    "featured": coalesce(      featuredArtworks[]->[defined(image.asset)]{  _id,  title,  "slug": slug.current,  width,  height,  price,  status,  description,  image{    alt,    asset->{_id, url, metadata{lqip, dimensions{width, height}}}  }},      []    ),    "firstArtworks": *[_type == "artwork" && collection._ref == ^._id && defined(image.asset)]      | order(order asc, inventoryNumber asc)[0...3]{  _id,  title,  "slug": slug.current,  width,  height,  price,  status,  description,  image{    alt,    asset->{_id, url, metadata{lqip, dimensions{width, height}}}  }}  }
+// Query: *[_type == "collection" && defined(slug.current)] | order(order asc, name asc){    _id,    name,    "slug": slug.current,    "count": count(*[_type == "artwork" && collection._ref == ^._id && defined(image.asset)]),    // Une référence peut viser une œuvre supprimée ou non publiée : null, écarté côté code.    "featured": coalesce(featuredArtworks[]->{  _id,  title,  "slug": slug.current,  width,  height,  price,  status,  description,  image{    alt,    asset->{_id, url, metadata{lqip, dimensions{width, height}}}  }}, []),    "firstArtworks": *[_type == "artwork" && collection._ref == ^._id && defined(image.asset)]      | order(order asc, inventoryNumber asc)[0...3]{  _id,  title,  "slug": slug.current,  width,  height,  price,  status,  description,  image{    alt,    asset->{_id, url, metadata{lqip, dimensions{width, height}}}  }}  }
 export type HOME_QUERY_RESULT = Array<{
   _id: string
   name: string | null
@@ -328,8 +328,8 @@ export type HOME_QUERY_RESULT = Array<{
                 height: number | null
               } | null
             } | null
-          }
-        }
+          } | null
+        } | null
       }>
     | Array<never>
   firstArtworks: Array<{
@@ -372,7 +372,7 @@ declare global {
     '*[_type == "collection" && defined(slug.current)]{"slug": slug.current}': COLLECTION_SLUGS_QUERY_RESULT
     '\n  *[_type == "collection" && slug.current == $slug][0]{\n    _id,\n    name,\n    "slug": slug.current,\n    "artworks": *[_type == "artwork" && collection._ref == ^._id && defined(image.asset)]\n      | order(order asc, inventoryNumber asc){\n  _id,\n  title,\n  "slug": slug.current,\n  width,\n  height,\n  price,\n  status,\n  description,\n  image{\n    alt,\n    asset->{_id, url, metadata{lqip, dimensions{width, height}}}\n  }\n}\n  }\n': COLLECTION_QUERY_RESULT
     '\n  *[_type == "artwork" && defined(slug.current) && defined(collection->slug.current)]{\n    "slug": slug.current,\n    "collection": collection->slug.current\n  }\n': ARTWORK_PATHS_QUERY_RESULT
-    '\n  *[_type == "collection" && defined(slug.current)] | order(order asc, name asc){\n    _id,\n    name,\n    "slug": slug.current,\n    "count": count(*[_type == "artwork" && collection._ref == ^._id && defined(image.asset)]),\n    "featured": coalesce(\n      featuredArtworks[]->[defined(image.asset)]{\n  _id,\n  title,\n  "slug": slug.current,\n  width,\n  height,\n  price,\n  status,\n  description,\n  image{\n    alt,\n    asset->{_id, url, metadata{lqip, dimensions{width, height}}}\n  }\n},\n      []\n    ),\n    "firstArtworks": *[_type == "artwork" && collection._ref == ^._id && defined(image.asset)]\n      | order(order asc, inventoryNumber asc)[0...3]{\n  _id,\n  title,\n  "slug": slug.current,\n  width,\n  height,\n  price,\n  status,\n  description,\n  image{\n    alt,\n    asset->{_id, url, metadata{lqip, dimensions{width, height}}}\n  }\n}\n  }\n': HOME_QUERY_RESULT
+    '\n  *[_type == "collection" && defined(slug.current)] | order(order asc, name asc){\n    _id,\n    name,\n    "slug": slug.current,\n    "count": count(*[_type == "artwork" && collection._ref == ^._id && defined(image.asset)]),\n    // Une r\xE9f\xE9rence peut viser une \u0153uvre supprim\xE9e ou non publi\xE9e : null, \xE9cart\xE9 c\xF4t\xE9 code.\n    "featured": coalesce(featuredArtworks[]->{\n  _id,\n  title,\n  "slug": slug.current,\n  width,\n  height,\n  price,\n  status,\n  description,\n  image{\n    alt,\n    asset->{_id, url, metadata{lqip, dimensions{width, height}}}\n  }\n}, []),\n    "firstArtworks": *[_type == "artwork" && collection._ref == ^._id && defined(image.asset)]\n      | order(order asc, inventoryNumber asc)[0...3]{\n  _id,\n  title,\n  "slug": slug.current,\n  width,\n  height,\n  price,\n  status,\n  description,\n  image{\n    alt,\n    asset->{_id, url, metadata{lqip, dimensions{width, height}}}\n  }\n}\n  }\n': HOME_QUERY_RESULT
     '*[_type == "about" && _id == "about"][0]{email, instagram}': CONTACT_QUERY_RESULT
   }
 }
