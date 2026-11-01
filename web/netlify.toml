@@ -1,8 +1,10 @@
 # Configuration Netlify du site (application « web » du monorepo).
 # Dans Netlify : Base directory = (vide), Package directory = web.
+# Les commandes s'exécutent depuis la racine du dépôt : on ne construit que le site,
+# et le dossier publié est indiqué depuis la racine.
 [build]
-  command = "npm run build"
-  publish = ".next"
+  command = "npm run build --workspace web"
+  publish = "web/.next"
 
 [build.environment]
   NODE_VERSION = "22"
