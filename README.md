@@ -64,7 +64,7 @@ cd studio
 npm run deploy
 ```
 
-Au premier déploiement, la commande affiche un `appId` : l'ajouter dans `deployment` de `studio/sanity.cli.ts` (par une PR) pour que les suivants ne posent plus de question. Pour que Jean puisse se connecter, l'inviter dans [sanity.io/manage](https://www.sanity.io/manage) → projet Jean Nail → Members, avec le rôle Editor.
+L'`appId` du Studio est déjà renseigné dans `studio/sanity.cli.ts` : les déploiements suivants ne posent plus de question. Pour que Jean puisse se connecter, l'inviter dans [sanity.io/manage](https://www.sanity.io/manage) → projet Jean Nail → Members, avec le rôle Editor.
 
 ## Mise à jour automatique du site
 
