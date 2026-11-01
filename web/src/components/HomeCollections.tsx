@@ -9,6 +9,14 @@ import type {HomeCollection} from '@/sanity/collection'
 import {FramedArtwork} from './FramedArtwork'
 import styles from './HomeCollections.module.css'
 
+/*
+ * Largeurs affichées, reprises des plafonds de HomeCollections.module.css
+ * (30vw - 120px pour la grande œuvre, 14vw - 56px pour les petites).
+ * Sous 1100px l'accrochage est masqué : on vise petit pour l'image préchargée.
+ */
+const LARGE_SIZES = '(max-width: 1100px) 20vw, calc(30vw - 120px)'
+const SMALL_SIZES = '(max-width: 1100px) 10vw, calc(14vw - 56px)'
+
 type Props = {
   collections: HomeCollection[]
 }
@@ -63,7 +71,7 @@ export function HomeCollections({collections}: Props) {
                   width={artwork.width}
                   height={artwork.height}
                   heightRatio={1}
-                  sizes={position === 0 ? '30vw' : '15vw'}
+                  sizes={position === 0 ? LARGE_SIZES : SMALL_SIZES}
                   preload={index === 0}
                 />
               </div>
