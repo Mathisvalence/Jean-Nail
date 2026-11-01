@@ -359,6 +359,42 @@ export type HOME_QUERY_RESULT = Array<{
 }>
 
 // Source: ../web/src/sanity/queries.ts
+// Variable: ABOUT_QUERY
+// Query: *[_type == "about" && _id == "about"][0]{    biography,    email,    instagram,    portrait{alt, asset->{_id, url, metadata{lqip, dimensions{width, height}}}}  }
+export type ABOUT_QUERY_RESULT = {
+  biography: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: 'span'
+      _key: string
+    }>
+    style?: 'normal'
+    listItem?: never
+    markDefs?: null
+    level?: number
+    _type: 'block'
+    _key: string
+  }> | null
+  email: string | null
+  instagram: string | null
+  portrait: {
+    alt: string | null
+    asset: {
+      _id: string
+      url: string | null
+      metadata: {
+        lqip: string | null
+        dimensions: {
+          width: number | null
+          height: number | null
+        } | null
+      } | null
+    } | null
+  } | null
+} | null
+
+// Source: ../web/src/sanity/queries.ts
 // Variable: CONTACT_QUERY
 // Query: *[_type == "about" && _id == "about"][0]{email, instagram}
 export type CONTACT_QUERY_RESULT = {
@@ -373,6 +409,7 @@ declare global {
     '\n  *[_type == "collection" && slug.current == $slug][0]{\n    _id,\n    name,\n    "slug": slug.current,\n    "artworks": *[_type == "artwork" && collection._ref == ^._id && defined(image.asset)]\n      | order(order asc, inventoryNumber asc){\n  _id,\n  title,\n  "slug": slug.current,\n  width,\n  height,\n  price,\n  status,\n  description,\n  image{\n    alt,\n    asset->{_id, url, metadata{lqip, dimensions{width, height}}}\n  }\n}\n  }\n': COLLECTION_QUERY_RESULT
     '\n  *[_type == "artwork" && defined(slug.current) && defined(collection->slug.current)]{\n    "slug": slug.current,\n    "collection": collection->slug.current\n  }\n': ARTWORK_PATHS_QUERY_RESULT
     '\n  *[_type == "collection" && defined(slug.current)] | order(order asc, name asc){\n    _id,\n    name,\n    "slug": slug.current,\n    "count": count(*[_type == "artwork" && collection._ref == ^._id && defined(image.asset)]),\n    // Une r\xE9f\xE9rence peut viser une \u0153uvre supprim\xE9e ou non publi\xE9e : null, \xE9cart\xE9 c\xF4t\xE9 code.\n    "featured": coalesce(featuredArtworks[]->{\n  _id,\n  title,\n  "slug": slug.current,\n  width,\n  height,\n  price,\n  status,\n  description,\n  image{\n    alt,\n    asset->{_id, url, metadata{lqip, dimensions{width, height}}}\n  }\n}, []),\n    "firstArtworks": *[_type == "artwork" && collection._ref == ^._id && defined(image.asset)]\n      | order(order asc, inventoryNumber asc)[0...3]{\n  _id,\n  title,\n  "slug": slug.current,\n  width,\n  height,\n  price,\n  status,\n  description,\n  image{\n    alt,\n    asset->{_id, url, metadata{lqip, dimensions{width, height}}}\n  }\n}\n  }\n': HOME_QUERY_RESULT
+    '\n  *[_type == "about" && _id == "about"][0]{\n    biography,\n    email,\n    instagram,\n    portrait{alt, asset->{_id, url, metadata{lqip, dimensions{width, height}}}}\n  }\n': ABOUT_QUERY_RESULT
     '*[_type == "about" && _id == "about"][0]{email, instagram}': CONTACT_QUERY_RESULT
   }
 }
