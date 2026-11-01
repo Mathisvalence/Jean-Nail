@@ -10,7 +10,9 @@
     "deploy-graphql": "sanity graphql deploy",
     "typegen": "sanity schema extract --force && sanity typegen generate",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "import:artworks": "sanity exec scripts/import/index.ts --with-user-token",
+    "test": "vitest run"
   },
   "dependencies": {
     "@sanity/icons": "^5.2.3",
@@ -24,6 +26,7 @@
   "devDependencies": {
     "@sanity/eslint-config-studio": "^7.0.0",
     "eslint": "^10",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^5.0.5"
   }
 }
