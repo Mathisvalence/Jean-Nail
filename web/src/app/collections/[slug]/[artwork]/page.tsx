@@ -5,7 +5,7 @@ import {notFound} from 'next/navigation'
 import {ArtworkViewer} from '@/components/ArtworkViewer'
 import {FramedArtwork} from '@/components/FramedArtwork'
 import {PageFade} from '@/components/PageFade'
-import {formatArtworkMeta, padIndex} from '@/lib/format'
+import {formatDimensions, padIndex} from '@/lib/format'
 import {neighbours} from '@/lib/navigation'
 import {getCollection} from '@/sanity/collection'
 import {sanityFetch} from '@/sanity/fetch'
@@ -39,7 +39,7 @@ export async function generateMetadata({
   const {artwork, collection} = result
   return {
     title: `${artwork.title} — ${collection.name}`,
-    description: artwork.description ?? `${artwork.title}, ${formatArtworkMeta(artwork)}.`,
+    description: `${artwork.title}, ${formatDimensions(artwork.width, artwork.height)}.`,
     // Aperçu de partage : la photo de l'œuvre, à 1200 px de large.
     openGraph: {
       images: [{url: `${artwork.image.url}?w=1200&fit=max&auto=format`, alt: artwork.image.alt}],
@@ -83,8 +83,8 @@ export default async function ArtworkPage({params}: PageProps<'/collections/[slu
 
         <div className={styles.caption}>
           <h1 className={styles.title}>{artwork.title}</h1>
-          <p className={styles.meta}>{formatArtworkMeta(artwork)}</p>
-          {artwork.description && <p className={styles.description}>{artwork.description}</p>}
+          {/* Seulement le titre et les dimensions : ni description ni prix (choix de mathis). */}
+          <p className={styles.meta}>{formatDimensions(artwork.width, artwork.height)}</p>
         </div>
       </main>
     </PageFade>
