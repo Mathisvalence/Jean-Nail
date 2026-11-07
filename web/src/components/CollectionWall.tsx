@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import {useCallback, useEffect, useRef, useState} from 'react'
 
-import {formatArtworkMeta, padIndex} from '@/lib/format'
+import {formatDimensions, padIndex} from '@/lib/format'
 import {fitWallHeight} from '@/lib/scale'
 import type {DisplayArtwork} from '@/sanity/collection'
 
@@ -16,7 +16,7 @@ type Props = {
 
 /**
  * Mur d'une collection : les œuvres défilent de gauche à droite (molette, trackpad, glisser),
- * à leur échelle réelle. L'œuvre au centre affiche ses informations en bas à gauche.
+ * à leur échelle réelle. L'œuvre au centre affiche son titre et ses dimensions en bas à gauche.
  */
 export function CollectionWall({artworks}: Props) {
   const stageRef = useRef<HTMLDivElement>(null)
@@ -138,15 +138,12 @@ export function CollectionWall({artworks}: Props) {
         {active && (
           <div className={styles.caption} aria-live="polite">
             <p className={styles.title}>{active.title}</p>
-            <p className={styles.meta}>{formatArtworkMeta(active)}</p>
-            {active.description && <p className={styles.description}>{active.description}</p>}
+            {/* Sur le mur, seulement le titre et les dimensions (choix de mathis). */}
+            <p className={styles.meta}>{formatDimensions(active.width, active.height)}</p>
           </div>
         )}
         <p className={styles.counter}>
-          <span className={styles.hint}>Faire défiler →</span>{' '}
-          <span>
-            {padIndex(activeIndex + 1)} / {padIndex(artworks.length)}
-          </span>
+          {padIndex(activeIndex + 1)} / {padIndex(artworks.length)}
         </p>
       </div>
     </div>
