@@ -83,13 +83,6 @@
   margin-top: 0.25rem;
 }
 
-.description {
-  margin-top: 0.5rem;
-  font-size: 0.8125rem;
-  line-height: 1.5;
-  color: var(--color-ink-muted);
-}
-
 .counter {
   flex: none;
   white-space: nowrap;
@@ -105,9 +98,5 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
-  }
-
-  .description {
-    display: none;
   }
 }

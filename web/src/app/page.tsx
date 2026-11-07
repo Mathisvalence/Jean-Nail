@@ -12,7 +12,6 @@ export default async function HomePage() {
       <main className={styles.main}>
         <h1 className="visually-hidden">Jean Nail, peintre</h1>
         <HomeCollections collections={collections} />
-        <p className={styles.tagline}>Sept collections, de la couleur au noir et blanc.</p>
       </main>
     </PageFade>
   )
