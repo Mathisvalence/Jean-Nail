@@ -15,9 +15,9 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@sanity/icons": "^5.2.3",
+    "@sanity/icons": "^5.3.0",
     "@sanity/locale-fr-fr": "^1.2.37",
-    "@sanity/vision": "^6.21.0",
+    "@sanity/vision": "^6.23.0",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "sanity": "^6.21.0",
